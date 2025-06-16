@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-require_relative 'topgg/utils/request'
-require 'json'
-require_relative 'topgg/bot'
-require_relative 'topgg/botSearch'
-require_relative 'topgg/user'
-require_relative 'topgg/stats'
-require_relative 'topgg/votes'
+require_relative "topgg/utils/request"
+require "json"
+require_relative "topgg/bot"
+require_relative "topgg/botSearch"
+require_relative "topgg/user"
+require_relative "topgg/stats"
+require_relative "topgg/votes"
+
 # Class Topgg
 # The class instantiates all the methods for api requests and posts.
 class Topgg
@@ -23,67 +24,58 @@ class Topgg
   # @param id [String] The id of the bot you want to fetch statistics from.
   # @return [Dbl::Bot] The Bot Object
   def get_bot(id)
-    resp = @request.get("bots/#{id}")
-
-    Dbl::Bot.new(resp)
+    Dbl::Bot.new(@request.get("bots/#{id}"))
   end
 
   # The method searches bots from top.gg using a keyword query.
   # @param [Object] params The parameters that can be used to query a search
   # To know what the parameters are check it out here
   # @return [Dbl::BotSearch] The BotSearch Object
-  def search_bot(params)
-    resp = @request.get('bots/search', params)
-    Dbl::BotSearch.new(resp)
-  end
-
-  # Search for a user on top.gg with id
-  # @param id [String] The id of the user to search for.
-  # @return [Dbl::User]
-  def user(id)
-    resp = @request.get("users/#{id}")
-
-    Dbl::User.new(resp)
+  def get_bots(params)
+    Dbl::BotSearch.new(@request.get("bots", params))
   end
 
   # Get Bot statistics.
-  # @param id [String] Id of the bot you want to get statistics of
   # @return [Dbl::Stats]
-  def get_stats(id)
-    resp = @request.get("bots/#{id}/stats")
-
-    Dbl::Stats.new(resp)
+  def get_stats()
+    Dbl::Stats.new(@request.get("bots/stats"))
   end
 
   # Mini-method to query if the bot(self) was voted by the user.
   # @param userid [String] The user id.
   # @return [Boolean]
   def voted?(userid)
-    resp = @request.get("bots/#{@id}/check", { userId: userid })
-
-    ret = resp
-    ret['voted'] == 1
+    resp = @request.get("bots/check", { userId: userid })
+    resp["voted"] == 1
   end
 
-  # Get the Last 1000 votes of the bot(self)
+  # Checks if the weekend multiplier is active, where a single vote counts as two.
+  # @return [Boolean]
+  def is_weekend?
+    resp = @request.get("weekend")
+    resp["is_weekend"]
+  end
+
+  # Get the last 1000 unique votes of the bot(self)
+  # @param page [Integer] The page to use. Defaults to 1.
   # @return [Dbl::Votes]
-  def votes
-    resp = @request.get("bots/#{@id}/votes")
+  def votes(page = 1)
+    page = 1 if page.to_i < 1
+    resp = @request.get("bots/#{@id}/votes", { page: page })
 
     Dbl::Votes.new(resp)
   end
 
   # Post Bot Statistics to the website
-  # @param server_count [Integer] The amount of servers the bot is in.
-  # @param shards [Integer] The amount of servers the bot is in per shard
-  # @param shard_count [Integer] The total number of shards.
-  def post_stats(server_count, shards: nil, shard_count: nil)
-    json_post = {
-      server_count: server_count,
-      shards: shards,
-      shard_count: shard_count
-    }.to_json
-    @request.post("bots/#{@id}/stats", json_post, { 'Content-Type' => 'application/json' })
+  # @param server_count [Integer] The amount of servers the bot is in. Must not be less than 1.
+  def post_stats(server_count)
+    raise ArgumentError, "server_count cannot be less than 1" unless server_count > 0
+
+    json_post = { server_count: server_count }.to_json
+    @request.post(
+      "bots/stats",
+      json_post
+    )
   end
 
   # Auto-posts stats on to the top.gg website
@@ -92,10 +84,12 @@ class Topgg
     semaphore = Mutex.new
     Thread.new do
       semaphore.synchronize do
-        interval 1800 do
+        interval 900 do
           server_len = client.servers.length
           post_stats(server_len)
-          print("[TOPGG] : \033[31;1;4m Bot statistics has been successfully posted!\033[0m")
+          puts(
+            "[TOPGG] : \033[31;1;4m Bot statistics has been successfully posted!\033[0m"
+          )
         end
       end
     end
@@ -110,11 +104,7 @@ class Topgg
   def interval(seconds)
     loop do
       yield
-       sleep seconds
+      sleep seconds
     end
   end
 end
-
-
-
-

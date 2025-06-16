@@ -1,3 +1,5 @@
+require "Date"
+
 module Dbl
   # The Bot class spreads the json parsed hash into different methods
   class Bot
@@ -10,169 +12,127 @@ module Dbl
     # @return [Hash]
     attr_reader :obj
 
-    alias :raw :obj
+    alias raw obj
 
     alias data obj
-    # Returns error message, if there's an error
+    # Returns error message if there's an error, otherwise nil
     # @return [String]
     def error
-      @obj['error'].to_str
-    end
-
-    # Returns the default Avatar of the client
-    # @return [String]
-    def defAvatar
-      @obj['defAvatar'].to_str
+      @obj["error"]
     end
 
     # Returns the invite link of the bot
     # @return [String]
     def invite
-      @obj['invite'].to_str
+      @obj["invite"]
     end
 
     # Returns the bot website, if configured
     # @return [String]
     def website
-      @obj['website'].to_str
+      @obj["website"]
     end
 
     # Returns support server link
     # @return [String]
     def support
-      "https://discord.gg/#{@obj['support']}"
+      @obj["support"]
     end
 
     # Returns github repository link, if any
     # @return [String]
     def github
-      @obj['github'].to_str
+      @obj["github"]
     end
 
     # Returns the long Description of the bot
     # @return [String]
     def longdesc
-      @obj['longdesc'].to_str
+      @obj["longdesc"]
     end
 
     # Returns the short description of the bot
     # @return [String]
     def shortdesc
-      @obj['shortdesc'].to_str
+      @obj["shortdesc"]
     end
 
     # Returns the default prefix of the bot
     # @return [String]
     def prefix
-      @obj['prefix'].to_str
-    end
-
-    # Returns the bot library
-    # @return [String]
-    def lib
-      @obj['lib'].to_str
+      @obj["prefix"]
     end
 
     # Returns the bot client id
     # @return [String]
     def clientid
-      @obj['clientid'].to_str
+      @obj["clientid"]
     end
 
     # Returns the avatar link of the bot
     # @return [String]
     def avatar
-      "https://cdn.discordapp.com/avatars/#{@obj['id']}/#{@obj['avatar']}.webp?size=1024"
+      @obj["avatar"]
     end
 
     # Returns the bot id
     # @return [String]
     def id
-      @obj['id'].to_str
-    end
-
-    # Returns the bot descriminator
-    # @return [String]
-    def descriminator
-      @obj['descriminator'].to_str
+      @obj["id"]
     end
 
     # Returns the bot username
     # @return [String]
     def username
-      @obj['username'].to_str
+      @obj["username"]
     end
 
     # Returns the date on which the bot was submitted
     # @return [Date]
     def date
-      Date.parse(@obj['date'])
+      Date.parse(@obj["date"])
     end
 
     # Returns the server count of the bot
     # @return [Integer]
     def server_count
-      @obj['server_count'].to_i
+      @obj["server_count"].to_i
     end
 
-    # Returns the amount of shards
-    # @return [String]
-    def shard_count
-      @obj['shard_count'].to_str
-    end
-
-    # Returns configured guilds in which the bot is in
-    # @return [String]
-    def guilds
-      @obj['guilds'].to_str
-    end 
-
-    # Returns the amount of guilds per shard of the bot
-    # @return [String]
-    def shards
-      @obj['shards'].to_str
-    end
-
-    # Returns the monthyPoints of the bot
-    # @return [String]
+    # Returns the monthly vote count of the bot
+    # @return [Integer]
     def monthlyPoints
-      @obj['monthlyPoints'].to_str
+      @obj["monthlyPoints"].to_i
     end
 
     # Returns the total points of the bot
-    # @return [String]
+    # @return [Integer]
     def points
-      @obj['points'].to_str
+      @obj["points"].to_i
     end
 
-    # Returns true/false depending on if the bot is certified or not
-    # @return [Boolean]
-    def certifiedBot
-      @obj['certifiedBot'].to_str
+    # Returns the Top.gg vanity URL code, can be nil
+    # @return [String]
+    def vanity
+      @obj["vanity"]
     end
 
     # Returns the owner ids
     # @return [Array<String>]
     def owners
-      @obj['owners'].to_str
+      @obj["owners"]
     end
 
     # Return the bot tags
     # @return [Array<String>]
     def tags
-      @obj['tags'].to_str
+      @obj["tags"]
     end
 
-    # Returns the bot banner url
-    # @return [String]
-    def bannerUrl
-      @obj['bannerUrl'].to_str
-    end
-
-    # Returns the donate bot guild ID
-    # @return [String]
-    def donatebotguildid
-      @obj['donatebotguildid'].to_str
+    # Returns an object containing the bot's reviews information.
+    # @return [Object]
+    def reviews
+      @obj["reviews"]
     end
   end
 end
