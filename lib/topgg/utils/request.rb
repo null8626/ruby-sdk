@@ -6,7 +6,7 @@ module Dbl
     class Request
       def initialize(token)
         @token = token
-        @url = "https://top.gg/api"
+        @url = "https://top.gg/api/v1"
       end
 
       def get(params, query=nil)

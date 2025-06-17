@@ -7,6 +7,7 @@ require_relative "topgg/botSearch"
 require_relative "topgg/user"
 require_relative "topgg/stats"
 require_relative "topgg/votes"
+require_relative "topgg/widget"
 
 # Class Topgg
 # The class instantiates all the methods for api requests and posts.
@@ -37,7 +38,7 @@ class Topgg
 
   # Get Bot statistics.
   # @return [Dbl::Stats]
-  def get_stats()
+  def get_stats
     Dbl::Stats.new(@request.get("bots/stats"))
   end
 
