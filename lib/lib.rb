@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
-require_relative "topgg/utils/request"
+require "base64"
 require "json"
+
+require_relative "topgg/utils/request"
 require_relative "topgg/bot"
 require_relative "topgg/botSearch"
 require_relative "topgg/user"
@@ -14,9 +16,19 @@ require_relative "topgg/widget"
 class Topgg
   # initializes the class attributes.
   # @param token [String] The authorization token from top.gg
-  # @param id [String]  The client id of the bot.
-  def initialize(token, id)
-    @id = id
+  def initialize(token)
+    begin
+      token_section = token.split('.')[1]
+      padding = '=' * ((4 - token_section.length % 4) % 4)
+      token_section += padding
+  
+      token_data = JSON.parse(Base64.decode64(token_section))
+          
+      @id = token_data['id']
+    rescue StandardError
+      raise ArgumentError, 'Got a malformed API token.'
+    end
+
     @token = token
     @request = Dbl::Utils::Request.new(token)
   end
@@ -60,7 +72,7 @@ class Topgg
   # Get the last 1000 unique votes of the bot(self)
   # @param page [Integer] The page to use. Defaults to 1.
   # @return [Dbl::Votes]
-  def votes(page = 1)
+  def get_votes(page = 1)
     page = 1 if page.to_i < 1
     resp = @request.get("bots/#{@id}/votes", { page: page })
 
