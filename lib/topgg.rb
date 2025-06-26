@@ -3,12 +3,13 @@
 require "base64"
 require "json"
 
-require_relative "topgg/utils/request"
 require_relative "topgg/bot"
 require_relative "topgg/botSearch"
 require_relative "topgg/user"
 require_relative "topgg/stats"
+require_relative "topgg/vote"
 require_relative "topgg/votes"
+require_relative "topgg/webhooks"
 require_relative "topgg/widget"
 
 # Class Topgg

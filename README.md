@@ -124,3 +124,37 @@ widget_url = Dbl::Widget.owner(:discord_bot, "574652751745777665")
 ```rb
 widget_url = Dbl::Widget.social(:discord_bot, "574652751745777665")
 ```
+
+### Webhooks
+
+#### Being notified whenever someone voted for your bot
+
+##### Ruby on Rails
+
+In your `config/application.rb`:
+
+```rb
+module MyServer
+  class Application < Rails::Application
+    # ...
+
+    config.middleware.use Dbl::Webhook,
+    type: Dbl::Webhook::VOTE,
+    path: "/votes",
+    auth: ENV["MY_TOPGG_WEBHOOK_SECRET"] do |vote|
+      Rails.logger.info "A user with the ID of #{vote.voter_id} has voted us on Top.gg!"
+    end
+  end
+end
+```
+
+##### Sinatra
+
+```rb
+use Dbl::Webhook,
+type: Dbl::Webhook::VOTE,
+path: "/votes",
+auth: ENV["MY_TOPGG_WEBHOOK_SECRET"] do |vote|
+  puts "A user with the ID of #{vote.voter_id} has voted us on Top.gg!"
+end
+```

@@ -7,12 +7,12 @@ module Dbl
     def initialize(obj)
       @obj = obj
     end
+
     # Get raw hash response
     # @return [Hash]
     attr_reader :obj
 
     alias raw obj
-
     alias data obj
 
     # The Total number of results

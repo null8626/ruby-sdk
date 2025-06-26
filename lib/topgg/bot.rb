@@ -1,4 +1,4 @@
-require "Date"
+require "date"
 
 module Dbl
   # The Bot class spreads the json parsed hash into different methods
@@ -8,13 +8,14 @@ module Dbl
     def initialize(obj)
       @obj = obj
     end
+
     # Returns raw hash of the parsed json object
     # @return [Hash]
     attr_reader :obj
 
     alias raw obj
-
     alias data obj
+
     # Returns error message if there's an error, otherwise nil
     # @return [String]
     def error

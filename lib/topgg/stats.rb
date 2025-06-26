@@ -7,12 +7,13 @@ module Dbl
       @obj = obj
     end
 
-    # Returns raw Hash of the response
+    # Get raw hash response
+    # @return [Hash]
     attr_reader :obj
 
     alias raw obj
-
     alias data obj
+    
     # Returns the server Count of the bot
     # @return [Integer]
     def server_count
