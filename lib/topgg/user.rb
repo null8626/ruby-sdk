@@ -8,11 +8,13 @@ module Dbl
       @obj = obj
     end
 
+    # Get raw hash response
+    # @return [Hash]
     attr_reader :obj
 
     alias raw obj
-
     alias data obj
+    
     # Check for errors, if any
     def error
       @obj["error"]
