@@ -65,14 +65,13 @@ has_voted = client.voted?("661200758510977084")
 ### Getting your bot's server count
 
 ```rb
-stats = client.get_stats
-server_count = stats.server_count
+server_count = client.get_server_count
 ```
 
 ### Posting your bot's server count
 
 ```rb
-client.post_stats(bot.server_count)
+client.post_server_count(bot.server_count)
 ```
 
 ### Automatically posting your bot's server count every few minutes

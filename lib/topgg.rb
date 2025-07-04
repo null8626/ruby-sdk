@@ -49,10 +49,11 @@ class Topgg
     Dbl::BotSearch.new(@request.get("bots", params))
   end
 
-  # Get Bot statistics.
-  # @return [Dbl::Stats]
-  def get_stats
-    Dbl::Stats.new(@request.get("bots/stats"))
+  # The method fetches your Discord bot's posted server count.
+  # @return [Integer]
+  def get_server_count
+    resp = @request.get("bots/stats")
+    resp["server_count"]
   end
 
   # Mini-method to query if the bot(self) was voted by the user.
@@ -80,9 +81,9 @@ class Topgg
     Dbl::Votes.new(resp)
   end
 
-  # Post Bot Statistics to the website
+  # The method posts your Discord bot's server count to the API. This will update the server count in your bot's Top.gg page.
   # @param server_count [Integer] The amount of servers the bot is in. Must not be less than 1.
-  def post_stats(server_count)
+  def post_server_count(server_count)
     raise ArgumentError, "server_count cannot be less than 1" unless server_count > 0
 
     json_post = { server_count: server_count }.to_json
