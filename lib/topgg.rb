@@ -6,11 +6,11 @@ require "json"
 require_relative "topgg/bot"
 require_relative "topgg/botSearch"
 require_relative "topgg/user"
-require_relative "topgg/stats"
 require_relative "topgg/vote"
 require_relative "topgg/votes"
 require_relative "topgg/webhooks"
 require_relative "topgg/widget"
+require_relative "topgg/utils/request"
 
 # Class Topgg
 # The class instantiates all the methods for api requests and posts.
@@ -101,7 +101,7 @@ class Topgg
       semaphore.synchronize do
         interval 900 do
           server_len = client.servers.length
-          post_stats(server_len)
+          post_server_count(server_len)
           puts(
             "[TOPGG] : \033[31;1;4m Bot statistics has been successfully posted!\033[0m"
           )

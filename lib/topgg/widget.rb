@@ -21,7 +21,7 @@ module Dbl
       # Generates a small widget URL for displaying votes.
       # @param ty [Symbol] The widget type.
       # @param id [String] The ID.
-      def get_votes(ty, id)
+      def votes(ty, id)
         raise ArgumentError, "Invalid widget type" unless TYPES.include?(ty)
         type = ty.to_s.gsub('_', '/')
 

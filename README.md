@@ -39,7 +39,7 @@ end
 #### First page
 
 ```rb
-voters = client.get_votes
+voters = client.get_voters
 
 for voter in voters.results do
   puts voter.username
@@ -49,7 +49,7 @@ end
 #### Subsequent pages
 
 ```rb
-voters = client.get_votes(2)
+voters = client.get_voters(2)
 
 for voter in voters.results do
   puts voter.username
