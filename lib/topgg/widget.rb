@@ -28,7 +28,7 @@ module Dbl
         "#{@base_url}/widgets/small/votes/#{type}/#{id}"
       end
 
-      # Generates a small widget URL for displaying an entity's owner.
+      # Generates a small widget URL for displaying a project's owner.
       # @param ty [Symbol] The widget type.
       # @param id [String] The ID.
       def owner(ty, id)

@@ -6,7 +6,7 @@ module Dbl
     class Request
       def initialize(token)
         @token = token
-        @url = "https://top.gg/api/v1"
+        @url = "https://top.gg/api"
       end
 
       def get(params, query=nil)
@@ -21,7 +21,7 @@ module Dbl
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
         request = Net::HTTP::Get.new(uri.request_uri)
-        request.add_field "Authorization", @token
+        request.add_field "Authorization", "Bearer #{@token}"
 
         response = http.request(request)
         JSON.parse(response.body)

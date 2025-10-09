@@ -11,7 +11,7 @@ module Dbl
     alias raw obj
     alias data obj
 
-    # Returns the ID of the Discord bot/server that received a vote.
+    # Returns the ID of the project that received a vote.
     # @return [String]
     def receiver_id
       !@obj["bot"].nil? ? @obj["guild"] : @obj["bot"]

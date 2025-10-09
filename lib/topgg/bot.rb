@@ -130,7 +130,7 @@ module Dbl
       @obj["tags"]
     end
 
-    # Returns an object containing the bot's reviews information.
+    # Returns an object containing the bot's review information.
     # @return [Object]
     def reviews
       @obj["reviews"]

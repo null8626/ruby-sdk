@@ -51,12 +51,12 @@ class Topgg
 
   # The method fetches your Discord bot's posted server count.
   # @return [Integer]
-  def get_server_count
+  def get_bot_server_count
     resp = @request.get("bots/stats")
     resp["server_count"]
   end
 
-  # Mini-method to query if the bot(self) was voted by the user.
+  # Mini-method to query if the project (self) was voted by the user in the past 12 hours.
   # @param userid [String] The user id.
   # @return [Boolean]
   def voted?(userid)
@@ -71,7 +71,7 @@ class Topgg
     resp["is_weekend"]
   end
 
-  # Get the last 1000 unique votes of the bot(self)
+  # Get the unique votes of the project (self)
   # @param page [Integer] The page to use. Defaults to 1.
   # @return [Dbl::Votes]
   def get_votes(page = 1)
@@ -83,7 +83,7 @@ class Topgg
 
   # The method posts your Discord bot's server count to the API. This will update the server count in your bot's Top.gg page.
   # @param server_count [Integer] The amount of servers the bot is in. Must not be less than 1.
-  def post_server_count(server_count)
+  def post_bot_server_count(server_count)
     raise ArgumentError, "server_count cannot be less than 1" unless server_count > 0
 
     json_post = { server_count: server_count }.to_json
@@ -101,7 +101,7 @@ class Topgg
       semaphore.synchronize do
         interval 900 do
           server_len = client.servers.length
-          post_server_count(server_len)
+          post_bot_server_count(server_len)
           puts(
             "[TOPGG] : \033[31;1;4m Bot statistics has been successfully posted!\033[0m"
           )
