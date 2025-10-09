@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    topgg (2.0.0)
+    topgg (1.2.0)
       rack (~> 3.0.9.1)
 
 GEM
