@@ -1,5 +1,5 @@
 module Dbl
-  # The Stats class spreads the JSON response into different methods
+  # A Discord bot's statistics
   class Stats
     # Initializes the Stats class
     # @param obj [Object] Response Hash

@@ -1,7 +1,7 @@
 require "date"
 
 module Dbl
-  # The Bot class spreads the json parsed hash into different methods
+  # A Discord bot listed on Top.gg
   class Bot
     # Initializes the Bot class
     # @param obj [Object]

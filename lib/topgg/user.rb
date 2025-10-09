@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Dbl
-  # The User class, used for Spreading the response body into different methods
+  # A Top.gg user
   class User
     # Instantiates the class variables
     # @param obj [Object] Response Data Object

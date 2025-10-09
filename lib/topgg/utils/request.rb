@@ -38,7 +38,7 @@ module Dbl
             uri.request_uri,
             initheader = {
               "Content-Type" => "application/json",
-              "Authorization" => @token
+              "Authorization" => "Bearer #{@token}"
             }
           )
         request.body = data.to_json

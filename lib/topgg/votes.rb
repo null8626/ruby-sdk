@@ -1,5 +1,5 @@
 module Dbl
-  # This class Spreads the Vote response body into different methods.
+  # A collection of Top.gg votes
   class Votes
     # Initializes the votes class
     # @param obj [Object] JSON parsed object

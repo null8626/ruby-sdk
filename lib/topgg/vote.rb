@@ -1,4 +1,5 @@
 module Dbl
+  # A dispatched Top.gg vote event
   class Vote
     def initialize(obj)
       @obj = obj

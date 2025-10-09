@@ -4,6 +4,7 @@ require "cgi"
 require_relative "vote"
 
 module Dbl
+  # A wrapper for directly receiving events from Top.gg's servers
   class Webhook
     VOTE = ->(json) { Vote.new(json) }
 

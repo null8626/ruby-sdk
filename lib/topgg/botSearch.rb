@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Dbl
-  # This class spreads the BotSearch Response body into different methods
+  # A Discord bot search query
   class BotSearch
     # Initalizes the BotSearch class
     # @param obj [Object] Response Hash
