@@ -112,6 +112,24 @@ module Dbl
       @obj["server_count"].to_i
     end
 
+    # The bot's posted shard count
+    # @return [Integer]
+    def shard_count
+      0
+    end
+
+    # The configured servers in which the bot is in
+    # @return [Array<String>]
+    def guilds
+      nil
+    end
+
+    # The server count for each shard of the bot
+    # @return [Array<Integer>]
+    def shards
+      nil
+    end
+
     # The bot's monthly votes
     # @return [Integer]
     def monthlyPoints
