@@ -172,6 +172,18 @@ module Dbl
       @obj["tags"]
     end
 
+    # The bot's banner URL
+    # @return [String]
+    def bannerUrl
+      ""
+    end
+
+    # The bot's donatebot server ID
+    # @return [String]
+    def donatebotguildid
+      ""
+    end
+
     # The bot's reviews
     # @return [Object]
     def reviews
