@@ -88,6 +88,12 @@ module Dbl
       @obj["id"]
     end
 
+    # The bot's discriminator
+    # @return [String]
+    def discriminator
+      "0"
+    end
+
     # The bot's username
     # @return [String]
     def username
