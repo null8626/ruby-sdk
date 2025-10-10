@@ -1,12 +1,12 @@
 require "rack"
 require "cgi"
 
-require_relative "vote"
+require_relative "voteEvent"
 
 module Dbl
   # A wrapper for directly receiving events from Top.gg's servers
   class Webhook
-    VOTE = ->(json) { Vote.new(json) }
+    VOTE = ->(json) { VoteEvent.new(json) }
 
     def initialize(app, type:, path:, auth:, &callback)
       raise ArgumentError, "A callback must be provided" unless callback

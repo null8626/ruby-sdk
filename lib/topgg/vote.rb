@@ -1,5 +1,5 @@
 module Dbl
-  # A dispatched Top.gg vote event
+  # A Top.gg vote information
   class Vote
     def initialize(obj)
       @obj = obj
@@ -12,36 +12,22 @@ module Dbl
     alias raw obj
     alias data obj
 
-    # The ID of the project that received a vote.
-    # @return [String]
-    def receiver_id
-      !@obj["bot"].nil? ? @obj["guild"] : @obj["bot"]
+    # When the vote was cast
+    # @return [Date]
+    def voted_at
+      Date.parse(@obj["created_at"])
     end
 
-    # The ID of the Top.gg user who voted.
-    # @return [String]
-    def voter_id
-      @obj["user"]
+    # When the vote expires
+    # @return [Date]
+    def expires_at
+      Date.parse(@obj["expires_at"])
     end
 
-    # Whether this vote is just a test done from the page settings.
-    # @return [Boolean]
-    def is_test
-      @obj["type"] == "test"
-    end
-
-    # Whether the weekend multiplier is active, where a single vote counts as two.
-    # @return [Boolean]
-    def is_weekend
-      @obj["isWeekend"] == true
-    end
-
-    # The query strings found on the vote page.
-    # @return [Hash<String, String>]
-    def query
-      return nil if @obj["query"].nil?
-
-      CGI.parse(@obj["query"]).transform_values(&:first)
+    # The vote's weight
+    # @return [Integer]
+    def weight
+      @obj["weight"]
     end
   end
 end

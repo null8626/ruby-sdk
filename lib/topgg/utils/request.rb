@@ -24,6 +24,8 @@ module Dbl
         request.add_field "Authorization", "Bearer #{@token}"
 
         response = http.request(request)
+        raise Net::HTTPError.new("Top.gg HTTP error: #{response.code}", response) unless response.code.start_with?('2')
+
         JSON.parse(response.body)
       end
 
