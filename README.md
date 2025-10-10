@@ -1,176 +1,57 @@
-# Top.gg Ruby SDK
+# [Top.gg](https://top.gg) Ruby
 
-The community-maintained Ruby library for Top.gg.
+The Top.gg Ruby SDK is a lighweight package, that allows you 
+to fetch data from the top.gg api and post data such as statistics to the website.
 
-## Chapters
+It provides you with numerous methods to interact with the API.
+## Dependencies
 
-- [Installation](#installation)
-- [Setting up](#setting-up)
-- [Usage](#usage)
-  - [Getting a bot](#getting-a-bot)
-  - [Getting several bots](#getting-several-bots)
-  - [Getting your bot's voters](#getting-your-bots-voters)
-  - [Check if a user has voted for your bot](#check-if-a-user-has-voted-for-your-bot)
-  - [Getting your bot's server count](#getting-your-bots-server-count)
-  - [Posting your bot's server count](#posting-your-bots-server-count)
-  - [Automatically posting your bot's server count every few minutes](#automatically-posting-your-bots-server-count-every-few-minutes)
-  - [Checking if the weekend vote multiplier is active](#checking-if-the-weekend-vote-multiplier-is-active)
-  - [Generating widget URLs](#generating-widget-urls)
-  - [Webhooks](#webhooks)
-    - [Being notified whenever someone voted for your bot](#being-notified-whenever-someone-voted-for-your-bot)
+* Ruby 
 
 ## Installation
 
-```sh
-$ gem install topgg
+``` bash
+
+gem install topgg
+
 ```
+## Note
 
-## Setting up
+You require a Token to interact with the Api.
+The token can be found at `https://top.gg/bot/[YOUR_BOT_ID]/webhooks` 
 
-```rb
-require "topgg"
+## Example
 
-client = Topgg.new(ENV["TOPGG_TOKEN"])
+Here's a straightforward example of how to request data with the wrapper.
+
+```ruby
+require 'topgg'
+
+client = Topgg.new("AUTH_TOKEN", "BOTID")
+
+client.get_bot("1234").defAvatar
+# returns
+# "6debd47ed13483642cf09e832ed0bc1b"
+
 ```
+### Auto Posting
 
-## Usage
+The library provides you with autoposting functionality, and autoposts at an interval of 30 minutes.
+Here's how you can use it
 
-### Getting a bot
+```ruby
+require 'topgg'
+require 'discordrb'
 
-```rb
-bot = client.get_bot("264811613708746752")
-```
+bot = Discordrb::Bot.new token: "TOKEN"
 
-### Getting several bots
-
-```rb
-bots = client.get_bots({ sort: "date", limit: 50, offset: 0 })
-
-for bot in bots.results do
-  puts bot.username
+client = Topgg.new("AUTH_TOKEN", "BOTID")
+ bot.ready do |event|
+ client.auto_post_stats(bot) # The discordrb bot client.
 end
-```
-
-### Getting your bot's voters
-
-#### First page
-
-```rb
-voters = client.get_voters
-
-for voter in voters.results do
-  puts voter.username
-end
-```
-
-#### Subsequent pages
-
-```rb
-voters = client.get_voters(2)
-
-for voter in voters.results do
-  puts voter.username
-end
-```
-
-### Check if a user has voted for your bot
-
-```rb
-has_voted = client.voted?("661200758510977084")
-```
-
-### Getting your bot's server count
-
-```rb
-server_count = client.get_server_count
-```
-
-### Posting your bot's server count
-
-```rb
-client.post_server_count(bot.server_count)
-```
-
-### Automatically posting your bot's server count every few minutes
-
-For Discordrb:
-
-```rb
-require "discordrb"
-
-bot = Discordrb::Bot.new(token: env["BOT_TOKEN"], intents: [:servers])
-
-bot.ready do |event|
-  client.auto_post_stats(bot)
-  
-  puts "Bot is now ready!"
-end
-
 bot.run
 ```
 
-### Checking if the weekend vote multiplier is active
+# Documentation
 
-```rb
-is_weekend = client.is_weekend?
-```
-
-### Generating widget URLs
-
-#### Large
-
-```rb
-widget_url = Dbl::Widget.large(:discord_bot, "574652751745777665")
-```
-
-#### Votes
-
-```rb
-widget_url = Dbl::Widget.votes(:discord_bot, "574652751745777665")
-```
-
-#### Owner
-
-```rb
-widget_url = Dbl::Widget.owner(:discord_bot, "574652751745777665")
-```
-
-#### Social
-
-```rb
-widget_url = Dbl::Widget.social(:discord_bot, "574652751745777665")
-```
-
-### Webhooks
-
-#### Being notified whenever someone voted for your bot
-
-##### Ruby on Rails
-
-In your `config/application.rb`:
-
-```rb
-module MyServer
-  class Application < Rails::Application
-    # ...
-
-    config.middleware.use Dbl::Webhook,
-    type: Dbl::Webhook::VOTE,
-    path: "/votes",
-    auth: ENV["MY_TOPGG_WEBHOOK_SECRET"] do |vote|
-      Rails.logger.info "A user with the ID of #{vote.voter_id} has voted us on Top.gg!"
-    end
-  end
-end
-```
-
-##### Sinatra
-
-```rb
-use Dbl::Webhook,
-type: Dbl::Webhook::VOTE,
-path: "/votes",
-auth: ENV["MY_TOPGG_WEBHOOK_SECRET"] do |vote|
-  puts "A user with the ID of #{vote.voter_id} has voted us on Top.gg!"
-end
-```
+Check out the api reference [here](https://rubydoc.info/gems/topgg/)
