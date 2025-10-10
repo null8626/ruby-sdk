@@ -5,6 +5,7 @@ require "json"
 
 require_relative "topgg/bot"
 require_relative "topgg/botSearch"
+require_relative "topgg/stats"
 require_relative "topgg/user"
 require_relative "topgg/vote"
 require_relative "topgg/votes"
@@ -84,7 +85,8 @@ class Topgg
   # @param page [Integer] The page to use. Defaults to 1.
   # @return [Dbl::Votes]
   def votes(page = 1)
-    page = 1 if page.to_i < 1
+    page = page.to_i
+    page = 1 if page < 1
     resp = @request.get("bots/#{@id}/votes", { page: page })
 
     Dbl::Votes.new(resp)
