@@ -16,16 +16,16 @@ module Dbl
     alias raw obj
     alias data obj
 
-    # The bot's default avatar
-    # @return [String]
-    def defAvatar
-      ""
-    end
-
     # The error message if there's an error, otherwise nil
     # @return [String]
     def error
       @obj["error"]
+    end
+
+    # The bot's default avatar
+    # @return [String]
+    def defAvatar
+      ""
     end
 
     # The bot's invite URL
