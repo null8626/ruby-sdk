@@ -148,6 +148,12 @@ module Dbl
       @obj["points"].to_i
     end
 
+    # Whether the bot is certified
+    # @return [Boolean]
+    def certifiedBot
+      false
+    end
+
     # The bot's vanity code, can be nil
     # @return [String]
     def vanity
