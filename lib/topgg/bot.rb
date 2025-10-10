@@ -70,6 +70,12 @@ module Dbl
       @obj["prefix"]
     end
 
+    # The bot's Discord library
+    # @return [String]
+    def lib
+      ""
+    end
+
     # The bot's client ID
     # @return [String]
     def clientid
