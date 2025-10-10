@@ -13,7 +13,7 @@ require_relative "topgg/widget"
 require_relative "topgg/utils/request"
 
 # Class Topgg
-# The class instantiates all the methods for api requests and posts.
+# The class instantiates all the methods for API requests and posts.
 class Topgg
   # initializes the class attributes.
   # @param token [String] The authorization token from top.gg
@@ -34,30 +34,39 @@ class Topgg
     @request = Dbl::Utils::Request.new(token)
   end
 
-  # The method fetches bot statistics from top.gg
-  # @param id [String] The id of the bot you want to fetch statistics from.
+  # Fetches bot statistics from top.gg
+  # @param id [String] The bot's ID
   # @return [Dbl::Bot] The Bot Object
   def get_bot(id)
     Dbl::Bot.new(@request.get("bots/#{id}"))
   end
 
-  # The method searches bots from top.gg using a keyword query.
+  # Searches bots from Top.gg using a keyword query.
   # @param [Object] params The parameters that can be used to query a search
   # To know what the parameters are check it out here
   # @return [Dbl::BotSearch] The BotSearch Object
-  def get_bots(params)
+  def search_bot(params)
     Dbl::BotSearch.new(@request.get("bots", params))
   end
 
-  # The method fetches your Discord bot's posted server count.
-  # @return [Integer]
-  def get_bot_server_count
-    resp = @request.get("bots/stats")
-    resp["server_count"]
+  # [Deprecated] Fetch a user on Top.gg based on an ID
+  # @param id [String] The user's ID
+  # @return [Dbl::User]
+  def user(id)
+    nil
   end
 
-  # Mini-method to query if the project (self) was voted by the user in the past 12 hours.
-  # @param userid [String] The user id.
+  # Get your Discord bot's posted statistics
+  # @param id [String] The bot's ID. Unused, no longer has an effect.
+  # @return [Dbl::Stats]
+  def get_stats(id = nil)
+    resp = @request.get("bots/stats")
+
+    Dbl::Stats.new(resp)
+  end
+
+  # Mini-method to query if your project was voted by the user in the past 12 hours.
+  # @param userid [String] The user's ID.
   # @return [Boolean]
   def voted?(userid)
     resp = @request.get("bots/check", { userId: userid })
@@ -71,19 +80,21 @@ class Topgg
     resp["is_weekend"]
   end
 
-  # Get the unique votes of the project (self)
+  # Get the unique votes of your project
   # @param page [Integer] The page to use. Defaults to 1.
   # @return [Dbl::Votes]
-  def get_votes(page = 1)
+  def votes(page = 1)
     page = 1 if page.to_i < 1
     resp = @request.get("bots/#{@id}/votes", { page: page })
 
     Dbl::Votes.new(resp)
   end
 
-  # The method posts your Discord bot's server count to the API. This will update the server count in your bot's Top.gg page.
+  # Posts your Discord bot's server count to the API. This will update the server count in your bot's Top.gg page.
   # @param server_count [Integer] The amount of servers the bot is in. Must not be less than 1.
-  def post_bot_server_count(server_count)
+  # @param shards [Integer] The amount of servers the bot is in per shard. Unused, no longer has an effect.
+  # @param shard_count [Integer] The total number of shards. Unused, no longer has an effect.
+  def post_stats(server_count, shards = nil, shard_count = nil)
     raise ArgumentError, "server_count cannot be less than 1" unless server_count > 0
 
     json_post = { server_count: server_count }.to_json
@@ -93,7 +104,7 @@ class Topgg
     )
   end
 
-  # Auto-posts stats on to the top.gg website
+  # Auto-posts stats to the Top.gg website
   # @param client [Discordrb::Bot] instanceof discordrb client.
   def auto_post_stats(client)
     semaphore = Mutex.new
@@ -101,7 +112,7 @@ class Topgg
       semaphore.synchronize do
         interval 900 do
           server_len = client.servers.length
-          post_bot_server_count(server_len)
+          post_stats(server_len)
           puts(
             "[TOPGG] : \033[31;1;4m Bot statistics has been successfully posted!\033[0m"
           )

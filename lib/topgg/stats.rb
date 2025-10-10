@@ -7,7 +7,8 @@ module Dbl
       @obj = obj
     end
 
-    # Returns raw Hash of the response
+    # The raw hash of the parsed JSON object
+    # @return [Hash]
     attr_reader :obj
 
     alias raw obj 

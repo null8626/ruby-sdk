@@ -9,128 +9,134 @@ module Dbl
       @obj = obj
     end
 
-    # Returns raw hash of the parsed json object
+    # The raw hash of the parsed JSON object
     # @return [Hash]
     attr_reader :obj
 
     alias raw obj
     alias data obj
 
-    # Returns error message if there's an error, otherwise nil
+    # The bot's default avatar
+    # @return [String]
+    def defAvatar
+      ""
+    end
+
+    # The error message if there's an error, otherwise nil
     # @return [String]
     def error
       @obj["error"]
     end
 
-    # Returns the invite link of the bot
+    # The bot's invite URL
     # @return [String]
     def invite
       @obj["invite"]
     end
 
-    # Returns the bot website, if configured
+    # The bot's website URL, if configured
     # @return [String]
     def website
       @obj["website"]
     end
 
-    # Returns support server link
+    # The bot's support server URL
     # @return [String]
     def support
       @obj["support"]
     end
 
-    # Returns github repository link, if any
+    # The bot's github repository URL, if any
     # @return [String]
     def github
       @obj["github"]
     end
 
-    # Returns the long Description of the bot
+    # The bot's long description
     # @return [String]
     def longdesc
       @obj["longdesc"]
     end
 
-    # Returns the short description of the bot
+    # The bot's short description
     # @return [String]
     def shortdesc
       @obj["shortdesc"]
     end
 
-    # Returns the default prefix of the bot
+    # The bot's default prefix
     # @return [String]
     def prefix
       @obj["prefix"]
     end
 
-    # Returns the bot client id
+    # The bot's client ID
     # @return [String]
     def clientid
       @obj["clientid"]
     end
 
-    # Returns the avatar link of the bot
+    # The bot's avatar URL
     # @return [String]
     def avatar
       @obj["avatar"]
     end
 
-    # Returns the bot id
+    # The bot's ID
     # @return [String]
     def id
       @obj["id"]
     end
 
-    # Returns the bot username
+    # The bot's username
     # @return [String]
     def username
       @obj["username"]
     end
 
-    # Returns the date on which the bot was submitted
+    # The bot's submission date
     # @return [Date]
     def date
       Date.parse(@obj["date"])
     end
 
-    # Returns the server count of the bot
+    # The bot's posted server count
     # @return [Integer]
     def server_count
       @obj["server_count"].to_i
     end
 
-    # Returns the monthly vote count of the bot
+    # The bot's monthly votes
     # @return [Integer]
     def monthlyPoints
       @obj["monthlyPoints"].to_i
     end
 
-    # Returns the total points of the bot
+    # The bot's total votes
     # @return [Integer]
     def points
       @obj["points"].to_i
     end
 
-    # Returns the Top.gg vanity URL code, can be nil
+    # The bot's vanity code, can be nil
     # @return [String]
     def vanity
       @obj["vanity"]
     end
 
-    # Returns the owner ids
+    # The bot's owner IDs
     # @return [Array<String>]
     def owners
       @obj["owners"]
     end
 
-    # Return the bot tags
+    # The bot's tags
     # @return [Array<String>]
     def tags
       @obj["tags"]
     end
 
-    # Returns an object containing the bot's review information.
+    # The bot's reviews
     # @return [Object]
     def reviews
       @obj["reviews"]

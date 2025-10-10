@@ -8,7 +8,7 @@ module Dbl
       @obj = obj
     end
 
-    # Get raw hash response
+    # The raw hash of the parsed JSON object
     # @return [Hash]
     attr_reader :obj
 
@@ -20,23 +20,23 @@ module Dbl
       @obj["error"]
     end
 
-    # The Id of the user
+    # The user's ID
     def id
       @obj["id"]
     end
 
-    # The username of the user
+    # The user's username
     def username
       @obj["username"]
     end
 
-    # The avatar of the user
+    # The user's avatar URL
     # @return [String]
     def avatar
       @obj["avatar"]
     end
 
-    # The default avatar of the user
+    # The user's default avatar
     # @return [String]
     def defAvatar
       ""

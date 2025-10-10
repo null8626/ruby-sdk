@@ -6,8 +6,8 @@ Gem::Specification.new do |spec|
   spec.authors = ["Adonis Tremblay"]
   spec.email = ["rhydderchc@gmail.com"]
 
-  spec.summary = "A top.gg api wrapper for ruby."
-  spec.description = "This is a ruby library of the top.gg API."
+  spec.summary = "A Top.gg API wrapper for ruby."
+  spec.description = "This is a ruby library of the Top.gg API."
   spec.homepage = "https://github.com/Top-gg-Community/ruby-sdk"
   spec.license = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.5.0")

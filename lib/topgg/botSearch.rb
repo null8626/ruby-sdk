@@ -8,7 +8,7 @@ module Dbl
       @obj = obj
     end
 
-    # Get raw hash response
+    # The raw hash of the parsed JSON object
     # @return [Hash]
     attr_reader :obj
 
@@ -51,13 +51,13 @@ module Dbl
       end
     end
 
-    # Returns the results array
+    # The results array
     # @return [Array<Bot>]
     def results
       @obj["results"].map { |b| Bot.new(b) }
     end
 
-    # Length of the results.
+    # The length of the results
     # @return [Integer]
     def size
       @obj["results"].length

@@ -7,7 +7,7 @@ module Dbl
       @obj = obj
     end
 
-    # Get raw hash return of the object
+    # The raw hash of the parsed JSON object
     # @return [Hash]
     attr_reader :obj
 
@@ -24,7 +24,7 @@ module Dbl
       end
     end
 
-    # Returns the results array
+    # The results array
     # @return [Array<User>]
     def results
       @obj.map { |u| User.new(u) }
