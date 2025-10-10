@@ -39,6 +39,12 @@ module Dbl
       @obj["count"].to_i
     end
 
+    # The results array
+    # @return [Array<Bot>]
+    def results
+      @obj["results"].map { |b| Bot.new(b) }
+    end
+
     # The number of bots skipped, can be nil
     # @return [Integer]
     def offset
@@ -49,12 +55,6 @@ module Dbl
       else
         offset.to_i
       end
-    end
-
-    # The results array
-    # @return [Array<Bot>]
-    def results
-      @obj["results"].map { |b| Bot.new(b) }
     end
 
     # The length of the results

@@ -76,5 +76,6 @@ module Dbl
     # @return [Boolean]
     def webMod
       false
+    end
   end
 end
